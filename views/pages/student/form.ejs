@@ -1,0 +1,63 @@
+﻿<%- include('../../fragments/header.ejs') %>
+<main>
+    <h2><%= pageTitle %></h2>
+    <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateStudentForm();">
+        <input type="hidden" name="_id" value="<%= stud._id %>">
+        <label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="firstName" id="firstName" placeholder="2-60 znaków" value="<%= stud.firstName %>"
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+        <span id="errorFirstName" class="errors-text"></span>
+        <label for="lastName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="lastName" id="lastName" placeholder="2-60 znaków" value="<%= stud.lastName %>"
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+        <span id="errorLastName" class="errors-text"></span>
+        <label for="studentEmail">E-mail:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="email" id="email" placeholder="np. nazwa@ait.pl" value="<%= stud.email %>"
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %> />
+        <span id="errorEmail" class="errors-text"></span>
+        <label for="studentAlias">Numer:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="studentAlias" name="studentAlias" id="studentAlias" placeholder="sXXXX" value="<%= stud.studentAlias %>"
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %> />
+        <span id="errorStudentAlias" class="errors-text"></span>
+        <% if (formMode == 'showDetails') { %>
+            <div class="section-buttons">
+                <a href="/students/edit/<%= stud._id %>" class="list-actions-button-edit">Edytuj</a>
+            </div>
+        <% } %>
+        <div class="form-buttons">
+            <p id="errorsSummary" class="errors-text"></p>
+            <% if (formMode != 'showDetails') { %>
+            <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+            <a class="form-button-cancel" href="/students">Anuluj</a>
+            <% } else { %>
+                <a class="form-button-cancel" href="/students">Powrót</a>
+            <% } %>
+        </div>
+        <% if (formMode == 'showDetails' || formMode == 'edit') { %>
+    </form>
+            <h2>
+                Szczegóły ocen
+            </h2>
+            <table class="table-list">
+                <thead>
+                <tr>
+                    <th>Przedmiot</th>
+                    <th>Ocena</th>
+                    <th>Data</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (let s of stud.grade) { %>
+                    <tr>
+                        <td><a href="/subject/details/<%= s.subject._id %>"><%= s.subject.name %></a></td>
+                        <td><%= s.grade %></td>
+                        <td><%= s.date.toISOString().split('T')[0] %></td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        <% } %>
+</main>
+<%- include('../../fragments/footer.ejs') %>
+
+

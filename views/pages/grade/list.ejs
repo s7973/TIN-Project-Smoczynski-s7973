@@ -1,0 +1,36 @@
+﻿<%- include('../../fragments/header.ejs') %>
+<main>
+    <h2>Lista ocen</h2>
+    <table class="table-list">
+        <thead>
+        <tr>
+            <th>Numer studenta</th>
+            <th>Przedmiot</th>
+            <th>Ocena</th>
+            <th>Data</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for (let g of grade) { %>
+            <tr>
+                <td><%= g.student.studentAlias %></td>
+                <td><%= g.subject.subjectAlias %></td>
+                <td><%= g.grade %></td>
+                <td><%= g.date.toISOString().split('T')[0] %></td>
+                <td>
+                    <ul class="list-actions">
+                        <li><a href="/grade/details/<%=g._id%>" class="list-actions-button-details">Szczegóły</a></li>
+                        <li><a href="/grade/edit/<%=g._id%>" class="list-actions-button-edit">Edytuj</a></li>
+                        <li><a href="/grade/delete/<%=g._id%>" class="list-actions-button-delete">Usuń</a></li>
+                    </ul>
+                </td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+    <p><a href="/grade/add" class="button-add" class="<%= navLocation == 'grade' ? 'active' : ''%>">Dodaj nową ocenę</a></p>
+    <p></p>
+</main>
+<%- include('../../fragments/footer.ejs') %>
+

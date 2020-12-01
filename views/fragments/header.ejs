@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademia IT</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script type="application/javascript" src="/js/validationCommon.js"></script>
+    <script type="application/javascript" src="/js/validationGradeForm.js"></script>
+    <script type="application/javascript" src="/js/validationStudentForm.js"></script>
+    <script type="application/javascript" src="/js/validationSubjectForm.js"></script>
+</head>
+<body>
+<header>
+    <h1>Akademia IT</h1>
+    <img src="/images/academy_icon.jpg" alt="Akademia IT Logo">
+</header>
+<nav>
+    <ul>
+        <li><a href="/" class="<%= navLocation == 'main' ? 'active' : ''%>">Strona główna</a></li>
+        <li><a href="/student" class="<%= navLocation == 'student' ? 'active' : ''%>">Studenci</a></li>
+        <li><a href="/subject" class="<%= navLocation == 'subject' ? 'active' : ''%>">Przedmioty</a></li>
+        <li><a href="/grade" class="<%= navLocation == 'grade' ? 'active' : ''%>">Oceny</a></li>
+    </ul>
+</nav>

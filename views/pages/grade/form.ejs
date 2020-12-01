@@ -1,0 +1,64 @@
+﻿<%- include('../../fragments/header.ejs') %>
+    <main>
+        <h2><%= pageTitle %></h2>
+        <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateGradeForm();">
+            <input type="hidden" name="_id" value="<%= grade._id %>">
+            <label for="student">Student:<abbr title="required" aria-label="required">*</abbr></label>
+            <select id="student" name="student_id" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
+                <option value="" selected>--- Wybierz studenta ---</option>
+                <% for (let i=0; i<allStudents.length; i++) { let stud = allStudents[i]; %>
+                <option value="<%= stud._id %>" label="<%= stud.firstName + ' ' + stud.lastName %>"
+                        <%= (grade._id && stud._id.toString() == grade.student._id.toString()) ? 'selected' : ''%>></option>
+                <% } %>
+            </select>
+            <span id="errorStudent" class="errors-text"></span>
+            <label for="subject">Przedmiot:<abbr title="required" aria-label="required">*</abbr></label>
+            <select id="subject" name="subject_id" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
+                <option value="" selected>--- Wybierz przedmiot ---</option>
+                <% for (let i=0; i<allSubjects.length; i++) { let sub = allSubjects[i]; %>
+                <option value="<%= sub._id %>" label="<%= sub.name%>"
+                        <%= (grade._id && sub._id.toString() == grade.subject._id.toString()) ? 'selected' : ''%>></option>
+                <% } %>
+            </select>
+            <span id="errorSubject" class="errors-text"></span>
+            <label for="grade">Ocena:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="text" name="grade" id="grade" placeholder="cyfra od 2 do 5" value = "<%= grade.grade %>"
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %> />
+            <span id="errorGrade" class="errors-text"></span>
+            <label for="date">Data:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="date" name="date" id="date" placeholder="yyyy-mm-dd" value = "<%= grade.date %>"
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %> />
+            <span id="errorDate" class="errors-text"></span>
+            <% if (formMode == 'showDetails') { %>
+                <div class="section-buttons">
+                    <a href="/grade/edit/<%= grade._id %>" class="list-actions-button-edit">Edytuj</a>
+                </div>
+            <% } %>
+            <div class="form-buttons">
+                <p id="errorsSummary" class="errors-text"></p>
+                <% if (formMode != 'showDetails') { %>
+                <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+                <a class="form-button-cancel" href="/grade">Anuluj</a>
+                <% } else { %>
+                    <a class="form-button-cancel" href="/grade">Powrót</a>
+                <% } %>
+            </div>
+            <% if (formMode == 'showDetails' || formMode == 'edit') { %>
+        </form>
+        <h2>
+            Szczegóły oceny
+        </h2>
+        <table class="table-list">
+            <thead>
+            <tr>
+                <th>Przedmiot</th>
+                <th>Ocena</th>
+                <th>Data</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <% } %>
+    </main>
+<%- include('../../fragments/footer.ejs') %>

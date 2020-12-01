@@ -1,0 +1,59 @@
+<%- include('../../fragments/header.ejs') %>
+<main>
+    <h2><%= pageTitle %></h2>
+    <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateSubjectForm();">
+        <input type="hidden" name="_id" value="<%= subject._id %>">
+        <label for="subjectName">Nazwa:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="name" id="subjectName" placeholder="2-60 znaków" value="<%= subject.name %>"
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+        <span id="errorSubject" class="errors-text"></span>
+        <label for="subjectAlias">Skrót:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="subjectAlias" id="subjectAlias" placeholder="2-3 znaków" value="<%= subject.subjectAlias %>"
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
+        <span id="errorSubjectAlias" class="errors-text"></span>
+        <label for="semester">Semestr:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="semester" id="semester" placeholder="np.nazwa@ait.pl" value="<%= subject.semester %>"
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %> />
+        <span id="errorSemester" class="errors-text"></span>
+        <% if (formMode == 'showDetails') { %>
+            <div class="section-buttons">
+                <a href="/subject/edit/<%= subject._id %>" class="list-actions-button-edit">Edytuj</a>
+            </div>
+        <% } %>
+        <div class="form-buttons">
+            <p id="errorsSummary" class="errors-text"></p>
+            <% if (formMode != 'showDetails') { %>
+            <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+            <a class="form-button-cancel" href="/subject">Anuluj</a>
+            <% } else { %>
+                <a class="form-button-cancel" href="/subject">Powrót</a>
+            <% } %>
+        </div>
+        <% if (formMode == 'showDetails' || formMode == 'edit') { %>
+    </form>
+            <h2>
+                Szczegóły ocen
+            </h2>
+            <table class="table-list">
+                <thead>
+                <tr>
+                    <th>Dane studenta</th>
+                    <th>Ocena</th>
+                    <th>Data</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (let s of subject.grade) { %>
+                    <tr>
+                        <td><a href="/student/details/<%= s.student._id %>"><%= s.student.lastName %> <%= s.student.firstName %></a></td>
+                        <td><%= s.grade %></td>
+                        <td><%= s.date.toISOString().split('T')[0] %></td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        <% } %>
+</main>
+<%- include('../../fragments/footer.ejs') %>
+
+
