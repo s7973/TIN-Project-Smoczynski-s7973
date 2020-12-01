@@ -8,10 +8,6 @@ var indexRouter = require('./routes/index');
 const studentRouter = require('./routes/studentRoute');
 const gradeRouter = require('./routes/gradeRoute');
 const subjectRouter = require('./routes/subjectRoute');
-const studentApiRouter = require('./routes/api/StudentApiRoute');
-const subjectApiRouter = require('./routes/api/SubjectApiRoute');
-const gradeApiRouter = require('./routes/api/GradeApiRoute');
-const studentRoute = require('./routes/studentRoute');
 const sequelizeInit = require('./config/sequelize/init');
 sequelizeInit()
     .catch(err => {
@@ -34,11 +30,6 @@ app.use('/', indexRouter);
 app.use('/student', studentRouter);
 app.use('/grade', gradeRouter);
 app.use('/subject', subjectRouter);
-app.use('/api/students', studentApiRouter);
-app.use('/api/subjects', subjectApiRouter);
-app.use('/api/grades', gradeApiRouter);
-app.use('/students', studentRoute);
-app.use('/students/details', studentRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
