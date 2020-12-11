@@ -51,12 +51,23 @@
         <table class="table-list">
             <thead>
             <tr>
+                <th>Dane studenta</th>
+                <th>Numer studenta</th>
                 <th>Przedmiot</th>
+                <th>Skrót</th>
                 <th>Ocena</th>
                 <th>Data</th>
             </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td><a href="/student/details/<%= grade.student._id %>"><%= grade.student.lastName %> <%= grade.student.firstName %></a></td>
+                    <td><%= grade.student.studentAlias %></td>
+                    <td><a href="/subject/details/<%= grade.subject._id %>"><%= grade.subject.name %></a></td>
+                    <td><%= grade.subject.subjectAlias %></td>
+                    <td><%= grade.grade %></td>
+                    <td><%= grade.date.toISOString().split('T')[0] %></td>
+                </tr>
             </tbody>
         </table>
         <% } %>

@@ -35,50 +35,40 @@ exports.showAddGradeForm = (req, res, next) => {
 }
 
 exports.showGradeDetails = (req, res, next) => {
-    let allStudents, allSubjects;
-    StudentRepository.getStudents()
-        .then(stud => {
-            allStudents = stud;
-            return SubjectRepository.getSubjects();
-        })
-        .then(subject => {
-            allSubjects = subject;
+    const gradeId = req.params.gradeId;
+    GradeRepository.getGradeById(gradeId)
+        .then(grade => {
             res.render('pages/grade/form', {
-                grade: {},
+                grade: grade,
+                allStudents: '',
+                allSubjects: '',
                 formMode: 'showDetails',
-                allStudents: allStudents,
-                allSubjects: allSubjects,
-                pageTitle: 'Nowa ocena',
-                btnLabel: 'Dodaj ocenę',
+                pageTitle: 'Wpis',
+                btnLabel: 'Zapisz zmiany',
                 formAction: '',
                 navLocation: 'grade'
             });
         });
-}
+};
 
 
 
 exports.showEditGradeForm = (req, res, next) => {
-    let allStudents, allSubjects;
-    StudentRepository.getStudents()
-        .then(stud => {
-            allStudents = stud;
-            return SubjectRepository.getSubjects();
-        })
-        .then(subject => {
-            allSubjects = subject;
+    const gradeId = req.params.gradeId;
+    GradeRepository.getGradeById(gradeId)
+        .then(grade => {
             res.render('pages/grade/form', {
-                grade: {},
+                grade: grade,
+                allStudents: grade.student_id,
+                allSubjects: grade.subject_id,
                 formMode: 'edit',
-                allStudents: allStudents,
-                allSubjects: allSubjects,
-                pageTitle: 'Szczegóły oceny',
+                pageTitle: 'Edycja oceny',
                 btnLabel: 'Zapisz zmiany',
                 formAction: '/grade/edit',
                 navLocation: 'grade'
             });
         });
-}
+};
 
 exports.addGrade = (req, res, next) => {
     const gradeData = { ...req.body };

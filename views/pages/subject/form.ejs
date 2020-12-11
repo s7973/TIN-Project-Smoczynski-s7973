@@ -38,6 +38,7 @@
                 <thead>
                 <tr>
                     <th>Dane studenta</th>
+                    <th>Numer studenta</th>
                     <th>Ocena</th>
                     <th>Data</th>
                 </tr>
@@ -46,6 +47,7 @@
                 <% for (let s of subject.grade) { %>
                     <tr>
                         <td><a href="/student/details/<%= s.student._id %>"><%= s.student.lastName %> <%= s.student.firstName %></a></td>
+                        <td><%= s.student.studentAlias %></td>
                         <td><%= s.grade %></td>
                         <td><%= s.date.toISOString().split('T')[0] %></td>
                     </tr>

@@ -55,8 +55,20 @@ exports.addStudent = (req, res, next) => {
     StudentRepository.createStudent(studData)
         .then( result => {
             res.redirect('/student');
+        })
+        .catch(err => {
+            res.render('pages/student/form', {
+                stud: studData,
+                pageTitle: 'Dodawanie studenta',
+                formMode: 'createNew',
+                btnLabel: 'Dodaj studenta',
+                formAction: '/student/add',
+                navLocation: 'student',
+                validationErrors: err.details
+            });
         });
 };
+
 
 exports.updateStudent = (req, res, next) => {
     const studId = req.body._id;

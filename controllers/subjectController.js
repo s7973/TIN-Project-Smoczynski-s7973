@@ -13,7 +13,7 @@ exports.showSubjectList = (req, res, next) => {
 exports.showAddSubjectForm = (req, res, next) => {
     res.render('pages/subject/form', {
         subject: {},
-        pageTitle: 'Nowy przedmiot',
+        pageTitle: 'Nowy przedmiots',
         formMode: 'createNew',
         btnLabel: 'Dodaj przedmiot',
         formAction: '/subject/add',
@@ -55,8 +55,11 @@ exports.addSubject = (req, res, next) => {
     SubjectRepository.createSubject(subjectData)
         .then( result => {
             res.redirect('/subject');
-        });
+        })
+
 };
+
+
 
 exports.updateSubject = (req, res, next) => {
     const subjectId = req.body._id;

@@ -18,7 +18,7 @@ exports.getStudentById = (studentId) => {
                 }]
             }]
         }
-        );
+    );
 };
 
 exports.createStudent = (newStudentData) => {
