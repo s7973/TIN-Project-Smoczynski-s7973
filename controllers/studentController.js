@@ -76,8 +76,21 @@ exports.updateStudent = (req, res, next) => {
     StudentRepository.updateStudent(studId, studData)
         .then( result => {
             res.redirect('/student');
+        })
+        .catch(err => {
+            res.render('pages/student/form', {
+                stud: studData,
+                pageTitle: 'Dodawanie studenta',
+                formMode: 'createNew',
+                btnLabel: 'Dodaj studenta',
+                formAction: '/student/add',
+                navLocation: 'student',
+                validationErrors: err.details
+            });
         });
 };
+
+
 
 exports.deleteStudent = (req, res, next) => {
     const studId = req.params.studId;

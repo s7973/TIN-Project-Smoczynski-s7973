@@ -13,7 +13,7 @@ exports.showSubjectList = (req, res, next) => {
 exports.showAddSubjectForm = (req, res, next) => {
     res.render('pages/subject/form', {
         subject: {},
-        pageTitle: 'Nowy przedmiots',
+        pageTitle: 'Nowy przedmiot',
         formMode: 'createNew',
         btnLabel: 'Dodaj przedmiot',
         formAction: '/subject/add',

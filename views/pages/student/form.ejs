@@ -12,6 +12,7 @@
                 <%= validationErrors.find(e => e.path.includes('firstName')).message %>
             <% } %>
         </span>
+
         <label for="lastName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
         <input type="text" name="lastName" id="lastName" placeholder="2-60 znaków" value="<%= stud.lastName %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>
