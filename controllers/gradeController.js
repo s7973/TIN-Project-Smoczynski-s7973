@@ -35,32 +35,52 @@ exports.showAddGradeForm = (req, res, next) => {
 }
 
 exports.showGradeDetails = (req, res, next) => {
+    let allStudents, allSubjects;
+    StudentRepository.getStudents()
+        .then(stud => {
+            allStudents = stud;
+            return StudentRepository.getStudents();
+        });
+    SubjectRepository.getSubjects()
+        .then(subject => {
+            allSubjects = subject;
+            return SubjectRepository.getSubjects();
+        });
     const gradeId = req.params.gradeId;
     GradeRepository.getGradeById(gradeId)
         .then(grade => {
             res.render('pages/grade/form', {
                 grade: grade,
-                allStudents: '',
-                allSubjects: '',
+                allStudents: allStudents,
+                allSubjects: allSubjects,
                 formMode: 'showDetails',
-                pageTitle: 'Wpis',
+                pageTitle: 'Szczegóły oceny',
                 btnLabel: 'Zapisz zmiany',
-                formAction: '',
+                formAction: 'grade/details',
                 navLocation: 'grade'
             });
         });
 };
 
-
-
 exports.showEditGradeForm = (req, res, next) => {
+    let allStudents, allSubjects;
+    StudentRepository.getStudents()
+        .then(stud => {
+            allStudents = stud;
+            return StudentRepository.getStudents();
+        });
+        SubjectRepository.getSubjects()
+        .then(subject => {
+            allSubjects = subject;
+            return SubjectRepository.getSubjects();
+        });
     const gradeId = req.params.gradeId;
     GradeRepository.getGradeById(gradeId)
         .then(grade => {
             res.render('pages/grade/form', {
                 grade: grade,
-                allStudents: grade.student_id,
-                allSubjects: grade.subject_id,
+                allStudents: allStudents,
+                allSubjects: allSubjects,
                 formMode: 'edit',
                 pageTitle: 'Edycja oceny',
                 btnLabel: 'Zapisz zmiany',
