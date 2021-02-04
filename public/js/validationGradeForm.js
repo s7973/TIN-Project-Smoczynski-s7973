@@ -11,6 +11,13 @@ function validateGradeForm() {
     const errorDate = document.getElementById('errorDate');
     const errorsSummary = document.getElementById('errorsSummary');
 
+    const reqMessage = document.getElementById('errorMessage-required').innerText;
+    const numberMessage = document.getElementById('errorMessage-number').innerText;
+    const rangeMessage = document.getElementById('errorMessage-range').innerText;
+    const dateFormatMessage = document.getElementById('errorMessage-date').innerText;
+    const dateFutureMessage = document.getElementById('errorMessage-future').innerText;
+    const summaryMessage = document.getElementById('errorMessage-summary').innerText;
+
     resetErrors([studentInput, subjectInput, gradeInput, dateInput], [errorStudent, errorSubject, errorGrade, errorDate], errorsSummary);
 
     let valid = true;
@@ -18,27 +25,27 @@ function validateGradeForm() {
     if (!checkRequired(studentInput.value)) {
         valid = false;
         studentInput.classList.add("error-input");
-        errorStudent.innerText = "Pole jest wymagane";
+        errorStudent.innerText = reqMessage;
     }
 
     if (!checkRequired(subjectInput.value)) {
         valid = false;
         subjectInput.classList.add("error-input");
-        errorSubject.innerText = "Pole jest wymagane";
+        errorSubject.innerText = reqMessage;
     }
 
     if (!checkRequired(gradeInput.value)) {
         valid = false;
         gradeInput.classList.add("error-input");
-        errorGrade.innerText = "Pole jest wymagane";
+        errorGrade.innerText = reqMessage;
     } else if (!checkNumber(gradeInput.value)) {
         valid = false;
         gradeInput.classList.add("error-input");
-        errorGrade.innerText = "Pole powinno być liczbą";
+        errorGrade.innerText = numberMessage;
     } else if (!checkNumberRange(gradeInput.value, 2, 5)) {
         valid = false;
         gradeInput.classList.add("error-input");
-        errorGrade.innerText = "Pole powinno być liczbą w zakresie od 2 do 5";
+        errorGrade.innerText = rangeMessage;
     }
 
     let nowDate = new Date(),
@@ -55,18 +62,18 @@ function validateGradeForm() {
     if (!checkRequired(dateInput.value)) {
         valid = false;
         dateInput.classList.add("error-input");
-        errorDate.innerText = "Pole jest wymagane";
+        errorDate.innerText = reqMessage;
     } else if (!checkDate(dateInput.value)) {
         valid = false;
         dateInput.classList.add("error-input");
-        errorDate.innerText = "Pole powinno zawierać datę w formacie yyyy-MM-dd (np. 2000-01-01)";
+        errorDate.innerText = dateFormatMessage;
     } else if (checkDateIfAfter(dateInput.value, nowString)) {
         valid = false;
         dateInput.classList.add("error-input");
-        errorDate.innerText = "Data nie może być z przyszłości";
+        errorDate.innerText = dateFutureMessage;
 }
     if (!valid) {
-        errorsSummary.innerText = "Formularz zawiera błędy";
+        errorsSummary.innerText = summaryMessage;
     }
 
     return valid;

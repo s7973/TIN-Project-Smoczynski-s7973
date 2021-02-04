@@ -1,0 +1,58 @@
+<%- include('../fragments/header.ejs') %>
+<main>
+    <div id="register">
+        <% if (message.length > 0) { %>
+            <div class="button-add">
+                <%= message %>
+            </div>
+        <% } %>
+        <h2><%= __('logging.registration') %></h2>
+        <form class="form"  method="post" action="<%=formAction%>" novalidate onsubmit="return validateStudentForm();">
+            <input type="hidden" name="_id" value="<%= stud._id %>">
+            <label for="firstName"><%= __('logging.firstName') %>:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="text" name="firstName" id="firstName" value="<%= stud.firstName %>"
+                   class="<%= validationErrors.find(e => e.path.includes('firstName')) ? 'error-input' : '' %>" />
+            <span id="errorFirstName" class="errors-text">
+                <% if (validationErrors.find(e => e.path.includes('firstName'))) { %>
+                    <%= validationErrors.find(e => e.path.includes('firstName')).message %>
+                <% } %>
+            </span>
+            <label for="lastName"><%= __('logging.lastName') %>:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="text" name="lastName" id="lastName" value="<%= stud.lastName %>"
+                   class="<%= validationErrors.find(e => e.path.includes('lastName')) ? 'error-input' : '' %>" />
+            <span id="errorLastName" class="errors-text">
+                <% if (validationErrors.find(e => e.path.includes('lastName'))) { %>
+                    <%= validationErrors.find(e => e.path.includes('lastName')).message %>
+                <% } %>
+            </span>
+            <label for="email"><%= __('logging.email') %>:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="text" name="email" id="email" value="<%= stud.email %>"
+                   class="<%= validationErrors.find(e => e.path.includes('email')) ? 'error-input' : '' %>" />
+            <span id="errorEmail" class="errors-text">
+                <% if (validationErrors.find(e => e.path.includes('email'))) { %>
+                    <%= validationErrors.find(e => e.path.includes('email')).message %>
+                <% } %>
+            </span>
+            <label for="password"><%= __('logging.password') %>:<abbr title="required" aria-label="required">*</abbr></label>
+            <input type="password" name="password" id="password" value="<%= stud.password %>"
+                   class="<%= validationErrors.find(e => e.path.includes('password')) ? 'error-input' : '' %>" />
+            <span id="errorPassword" class="errors-text">
+                <% if (validationErrors.find(e => e.path.includes('password'))) { %>
+                    <%= validationErrors.find(e => e.path.includes('password')).message %>
+                <% } %>
+            </span>
+            <input class="list-actions-button-edit" type="submit" value="<%= __('logging.register') %>">
+            <span class="errorsSummary" id="errors-text"><%= loginError ? loginError : ''%></span>
+        </form>
+    </div>
+    <div style="display: none">
+        <span id="errorMessage-required"><%= __('student.errors.errorField') %></span>
+        <span id="errorMessage-nameLength"><%= __('student.errors.errorNameLength') %></span>
+        <span id="errorMessage-alias"><%= __('student.errors.errorAlias') %></span>
+        <span id="errorMessage-emailLength"><%= __('student.errors.errorEmailLength') %></span>
+        <span id="errorMessage-email"><%= __('student.errors.errorEmail') %></span>
+        <span id="errorMessage-password"><%= __('student.errors.errorPassword') %></span>
+        <span id="errorMessage-summary"><%= __('student.errors.errorSummary') %></span>
+    </div>
+</main>
+<%- include('../fragments/footer.ejs') %>

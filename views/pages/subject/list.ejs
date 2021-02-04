@@ -1,13 +1,18 @@
 <%- include('../../fragments/header.ejs') %>
 <main>
-    <h2>Lista przedmiotów</h2>
+    <% if(message.length > 0) { %>
+        <div class="button-add">
+            <%= message %>
+        </div>
+    <% } %>
+    <h2><%= __('subject.list.pageTitle') %></h2>
     <table class="table-list">
         <thead>
         <tr>
-            <th>Nazwa</th>
-            <th>Skrót</th>
-            <th>Semestr</th>
-            <th>Akcje</th>
+            <th><%= __('subject.fields.name') %></th>
+            <th><%= __('subject.fields.subjectAlias') %></th>
+            <th><%= __('subject.fields.semester') %></th>
+            <th><%= __('list.actions.title') %></th>
         </tr>
         </thead>
         <tbody>
@@ -18,16 +23,20 @@
                 <td><%= s.semester %></td>
                 <td>
                     <ul class="list-actions">
-                        <li><a href="/subject/details/<%=s._id%>" class="list-actions-button-details">Szczegóły</a></li>
-                        <li><a href="/subject/edit/<%=s._id%>" class="list-actions-button-edit">Edytuj</a></li>
-                        <li><a href="/subject/delete/<%=s._id%>" class="list-actions-button-delete">Usuń</a></li>
+                        <%if (loggedUser && (loggedUser.accessLevel > 2))  { %>
+                        <li><a href="/subject/details/<%=s._id%>" class="list-actions-button-details"><%= __('list.actions.details') %></a></li>
+                        <li><a href="/subject/edit/<%=s._id%>" class="list-actions-button-edit"><%= __('list.actions.edit') %></a></li>
+                        <li><a href="/subject/delete/<%=s._id%>" class="list-actions-button-delete" onclick="return confirm('Are you sure?')" ><%= __('list.actions.delete') %></a></li>
+                        <% } %>
                     </ul>
                 </td>
             </tr>
         <% } %>
         </tbody>
     </table>
-    <p><a href="/subject/add" class="button-add" class="<%= navLocation == 'subject' ? 'active' : ''%>">Dodaj nowy przedmiot</a></p>
+    <%if (loggedUser && (loggedUser.accessLevel > 2))  { %>
+    <p><a href="/subject/add" class="button-add" class="<%= navLocation == 'subject' ? 'active' : ''%>"><%= __('subject.list.addNew') %></a></p>
+    <% } %>
     <p></p>
 </main>
 <%- include('../../fragments/footer.ejs') %>

@@ -16,6 +16,13 @@ footer,
 nav {
     margin: 1rem;
 }
+logger {
+    background-color: #ecf0f1;
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
 header,
 footer {
     background-color: #34495e;
@@ -316,6 +323,7 @@ body {
 .errors-text {
     font-size: 0.85em;
     line-height: 2.25rem;
+    color: #c0392b;
 }
 
 .form input.error-input,
@@ -338,4 +346,10 @@ body {
 
 .form-buttons {
     grid-column: 1 / span 1; 
+}
+
+.errors-login {
+    font-size: 0.85em;
+    line-height: 2.25rem;
+    color: #c0392b;
 }

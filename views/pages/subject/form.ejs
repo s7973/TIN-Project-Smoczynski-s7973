@@ -3,44 +3,59 @@
     <h2><%= pageTitle %></h2>
     <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateSubjectForm();">
         <input type="hidden" name="_id" value="<%= subject._id %>">
-        <label for="subjectName">Nazwa:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="name" id="subjectName" placeholder="2-60 znaków" value="<%= subject.name %>"
-                <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
-        <span id="errorSubject" class="errors-text"></span>
-        <label for="subjectAlias">Skrót:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="subjectAlias" id="subjectAlias" placeholder="2-3 znaków" value="<%= subject.subjectAlias %>"
-                <%= (formMode == 'showDetails') ? 'disabled' : '' %>/>
-        <span id="errorSubjectAlias" class="errors-text"></span>
-        <label for="semester">Semestr:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="semester" id="semester" placeholder="np.nazwa@ait.pl" value="<%= subject.semester %>"
-                <%= (formMode == 'showDetails') ? 'disabled' : '' %> />
-        <span id="errorSemester" class="errors-text"></span>
+        <label for="subjectName"><%= __('subject.fields.name') %>:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="name" id="subjectName" placeholder=<%= __('subject.placeholders.name') %> value="<%= subject.name %>"
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+               class="<%= validationErrors.find(e => e.path.includes('name')) ? 'error-input' : '' %>" />
+        <span id="errorSubject" class="errors-text">
+            <% if (validationErrors.find(e => e.path.includes('name'))) { %>
+                <%= validationErrors.find(e => e.path.includes('name')).message %>
+            <% } %>
+        </span>
+        <label for="subjectAlias"><%= __('subject.fields.subjectAlias') %>:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="subjectAlias" id="subjectAlias" placeholder=<%= __('subject.placeholders.code') %> value="<%= subject.subjectAlias %>"
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+               class="<%= validationErrors.find(e => e.path.includes('subjectAlias')) ? 'error-input' : '' %>"/>
+        <span id="errorSubjectAlias" class="errors-text">
+            <% if (validationErrors.find(e => e.path.includes('subjectAlias'))) { %>
+                <%= validationErrors.find(e => e.path.includes('subjectAlias')).message %>
+            <% } %>
+        </span>
+        <label for="semester"><%= __('subject.fields.semester') %>:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="semester" id="semester" placeholder=<%= __('subject.placeholders.semester') %>  value="<%= subject.semester %>"
+                <%= (formMode == 'showDetails') ? 'disabled' : '' %>
+               class="<%= validationErrors.find(e => e.path.includes('semester')) ? 'error-input' : '' %>"/>
+        <span id="errorSemester" class="errors-text">
+            <% if (validationErrors.find(e => e.path.includes('semester'))) { %>
+                <%= validationErrors.find(e => e.path.includes('semester')).message %>
+            <% } %>
+        </span>
         <% if (formMode == 'showDetails') { %>
             <div class="section-buttons">
-                <a href="/subject/edit/<%= subject._id %>" class="list-actions-button-edit">Edytuj</a>
+                <a href="/subject/edit/<%= subject._id %>" class="list-actions-button-edit"><%= __('form.actions.edit') %></a>
             </div>
         <% } %>
         <div class="form-buttons">
             <p id="errorsSummary" class="errors-text"></p>
             <% if (formMode != 'showDetails') { %>
             <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
-            <a class="form-button-cancel" href="/subject">Anuluj</a>
+            <a class="form-button-cancel" href="/subject"><%= __('form.actions.cancel') %></a>
             <% } else { %>
-                <a class="form-button-cancel" href="/subject">Powrót</a>
+                <a class="form-button-cancel" href="/subject"><%= __('form.actions.return') %></a>
             <% } %>
         </div>
         <% if (formMode == 'showDetails' || formMode == 'edit') { %>
     </form>
             <h2>
-                Szczegóły ocen
+                <%= __('subject.form.grades') %>
             </h2>
             <table class="table-list">
                 <thead>
                 <tr>
-                    <th>Dane studenta</th>
-                    <th>Numer studenta</th>
-                    <th>Ocena</th>
-                    <th>Data</th>
+                    <th><%= __('student.fields.data') %></th>
+                    <th><%= __('student.fields.number') %></th>
+                    <th><%= __('grade.fields.grade') %></th>
+                    <th><%= __('grade.fields.data') %></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -56,6 +71,14 @@
             </table>
         <% } %>
 </main>
+<div style="display: none">
+    <span id="errorMessage-required"><%= __('subject.errors.errorField') %></span>
+    <span id="errorMessage-nameLength"><%= __('subject.errors.errorNameLength') %></span>
+    <span id="errorMessage-code"><%= __('subject.errors.errorCode') %></span>
+    <span id="errorMessage-number"><%= __('subject.errors.errorNumber') %></span>
+    <span id="errorMessage-range"><%= __('subject.errors.errorRange') %></span>
+    <span id="errorMessage-summary"><%= __('subject.errors.errorSummary') %></span>
+</div>
 <%- include('../../fragments/footer.ejs') %>
 
 

@@ -3,18 +3,17 @@
     <h2><%= pageTitle %></h2>
     <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateStudentForm();">
         <input type="hidden" name="_id" value="<%= stud._id %>">
-        <label for="firstName">Imię:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="firstName" id="firstName" placeholder="2-60 znaków" value="<%= stud.firstName %>"
+        <label for="firstName"><%= __('student.fields.firstName') %>:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="firstName" id="firstName" placeholder=<%= __('student.placeholders.name') %> value="<%= stud.firstName %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>
-               class="<%= validationErrors.find(e => e.path.includes('firstName')) ? 'error-input' : '' %>"/>
+               class="<%= validationErrors.find(e => e.path.includes('firstName')) ? 'error-input' : '' %>" />
         <span id="errorFirstName" class="errors-text">
             <% if (validationErrors.find(e => e.path.includes('firstName'))) { %>
                 <%= validationErrors.find(e => e.path.includes('firstName')).message %>
             <% } %>
         </span>
-
-        <label for="lastName">Nazwisko:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="lastName" id="lastName" placeholder="2-60 znaków" value="<%= stud.lastName %>"
+        <label for="lastName"><%= __('student.fields.lastName') %>:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="lastName" id="lastName" placeholder=<%= __('student.placeholders.name') %> value="<%= stud.lastName %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>
                class="<%= validationErrors.find(e => e.path.includes('lastName')) ? 'error-input' : '' %>"/>
         <span id="errorLastName" class="errors-text">
@@ -22,28 +21,53 @@
                 <%= validationErrors.find(e => e.path.includes('lastName')).message %>
             <% } %>
         </span>
-        <label for="studentEmail">E-mail:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="text" name="email" id="email" placeholder="np. nazwa@ait.pl" value="<%= stud.email %>"
+        <label for="studentEmail"><%= __('student.fields.email') %>:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="text" name="email" id="email" placeholder=<%= __('student.placeholders.email') %>  value="<%= stud.email %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>
                class="<%= validationErrors.find(e => e.path.includes('email')) ? 'error-input' : '' %>"/>
         <span id="errorEmail" class="errors-text">
             <% if (validationErrors.find(e => e.path.includes('email'))) { %>
-                <%= validationErrors.find(e => e.path.includes('email')).message %>
+                <%= validationErrors.find(e => e.path.includes('email')).message = 'The email adress must be unique' %>
             <% } %>
         </span>
-        <label for="studentAlias">Numer:<abbr title="required" aria-label="required">*</abbr></label>
-        <input type="studentAlias" name="studentAlias" id="studentAlias" placeholder="sXXXX" value="<%= stud.studentAlias %>"
+        <label for="studentAlias"><%= __('student.fields.number') %>:</label>
+        <input type="studentAlias" name="studentAlias" id="studentAlias" placeholder=<%= __('student.placeholders.alias') %>  value="<%= stud.studentAlias %>"
                 <%= (formMode == 'showDetails') ? 'disabled' : '' %>
                class="<%= validationErrors.find(e => e.path.includes('studentAlias')) ? 'error-input' : '' %>"/>
-        <span id="errorStudentAlias" class="errors-text">
+        <span id="errorEmail" class="errors-text">
             <% if (validationErrors.find(e => e.path.includes('studentAlias'))) { %>
-                <%= validationErrors.find(e => e.path.includes('studentAlias')).message %>
+                <%= validationErrors.find(e => e.path.includes('studentAlias')).message = 'The student alias must be unique' %>
             <% } %>
         </span>
+        <label for="password"><%= __('student.fields.password') %>:<abbr title="required" aria-label="required">*</abbr></label>
+        <input type="password" name="password" id="password"  value="<%= stud.password %>"
+                <%= (formMode == 'showDetails')  ? 'disabled' : '' %>/>
+        <span id="errorPassword" class="errors-text">
+            <% if (validationErrors.find(e => e.path.includes('password'))) { %>
+                <%= validationErrors.find(e => e.path.includes('password')).message %>
+            <% } %>
+        </span>
+        <%if (loggedUser && (loggedUser.accessLevel > 3))  { %>
+            <label for="role"><%= __('student.fields.role') %>:</label>
+            <select id="role" name="accessLevel" required <%= (formMode == 'showDetails') ? 'disabled' : ''%> >
+                <option value="" selected><%= __('student.placeholders.role') %></option>
+                <% for (let i=0; i<allRoles.length; i++) { let role = allRoles[i]; %>
+                <option value="<%= role._id %>" label="<%= role.name%>"
+                        <%= (stud.accessLevel == role._id.toString()) ? 'selected' : ''%>></option>
+                <% } %>
+            </select>
+            <span id="errorRole" class="errors-text">
+                <% if (validationErrors.find(e => e.path.includes('accessLevel'))) { %>
+                    <%= validationErrors.find(e => e.path.includes('accessLevel')).message %>
+                <% } %>
+            </span>
+        <% } %>
         <% if (formMode == 'showDetails') { %>
+        <%if (loggedUser && (loggedUser.accessLevel > 2))  { %>
             <div class="section-buttons">
                 <a href="/student/edit/<%= stud._id %>" class="list-actions-button-edit">Edytuj</a>
             </div>
+        <% } %>
         <% } %>
         <div class="form-buttons">
             <p id="errorsSummary" class="errors-text"></p>
@@ -57,26 +81,41 @@
         <% if (formMode == 'showDetails' || formMode == 'edit') { %>
     </form>
     <h2>
-        Szczegóły ocen
+        <%= __('grade.form.details.pageTitle') %>
     </h2>
     <table class="table-list">
         <thead>
         <tr>
-            <th>Przedmiot</th>
-            <th>Ocena</th>
-            <th>Data</th>
+            <th><%= __('grade.fields.subject') %></th>
+            <th><%= __('grade.fields.grade') %></th>
+            <th><%= __('grade.fields.data') %></th>
         </tr>
         </thead>
         <tbody>
         <% for (let s of stud.grade) { %>
-            <tr>
+        <tr>
+            <%if (loggedUser && (loggedUser.accessLevel > 2))  { %>
                 <td><a href="/subject/details/<%= s.subject._id %>"><%= s.subject.name %></a></td>
                 <td><%= s.grade %></td>
                 <td><%= s.date.toISOString().split('T')[0] %></td>
-            </tr>
+            <% } else {%>
+                <td><a><%= s.subject.name %></a></td>
+                <td><%= s.grade %></td>
+                <td><%= s.date.toISOString().split('T')[0] %></td>
+            <%} %>
+        </tr>
         <% } %>
         </tbody>
     </table>
     <% } %>
 </main>
+<div style="display: none">
+    <span id="errorMessage-required"><%= __('student.errors.errorField') %></span>
+    <span id="errorMessage-nameLength"><%= __('student.errors.errorNameLength') %></span>
+    <span id="errorMessage-alias"><%= __('student.errors.errorAlias') %></span>
+    <span id="errorMessage-emailLength"><%= __('student.errors.errorEmailLength') %></span>
+    <span id="errorMessage-email"><%= __('student.errors.errorEmail') %></span>
+    <span id="errorMessage-password"><%= __('student.errors.errorPassword') %></span>
+    <span id="errorMessage-summary"><%= __('student.errors.errorSummary') %></span>
+</div>
 <%- include('../../fragments/footer.ejs') %>

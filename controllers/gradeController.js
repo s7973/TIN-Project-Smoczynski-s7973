@@ -7,7 +7,8 @@ exports.showGradeList = (req, res, next) => {
         .then(grade => {
             res.render('pages/grade/list', {
                 grade: grade,
-                navLocation: 'grade'
+                navLocation: 'grade',
+                message: req.flash('message')
             });
         });
 }
@@ -26,10 +27,11 @@ exports.showAddGradeForm = (req, res, next) => {
                 formMode: 'createNew',
                 allStudents: allStudents,
                 allSubjects: allSubjects,
-                pageTitle: 'Nowa ocena',
-                btnLabel: 'Dodaj ocenę',
+                pageTitle: req.__('grade.form.add.pageTitle'),
+                btnLabel: req.__('grade.form.add.btnLabel'),
                 formAction: '/grade/add',
-                navLocation: 'grade'
+                navLocation: 'grade',
+                validationErrors: []
             });
         });
 }
@@ -54,10 +56,11 @@ exports.showGradeDetails = (req, res, next) => {
                 allStudents: allStudents,
                 allSubjects: allSubjects,
                 formMode: 'showDetails',
-                pageTitle: 'Szczegóły oceny',
-                btnLabel: 'Zapisz zmiany',
+                pageTitle: req.__('grade.form.details.pageTitle'),
+                btnLabel: req.__('grade.form.add.btnLabel'),
                 formAction: 'grade/details',
-                navLocation: 'grade'
+                navLocation: 'grade',
+                validationErrors: []
             });
         });
 };
@@ -82,15 +85,17 @@ exports.showEditGradeForm = (req, res, next) => {
                 allStudents: allStudents,
                 allSubjects: allSubjects,
                 formMode: 'edit',
-                pageTitle: 'Edycja oceny',
-                btnLabel: 'Zapisz zmiany',
+                pageTitle: req.__('grade.form.details.pageTitle'),
+                btnLabel: req.__('grade.form.edit.btnLabel'),
                 formAction: '/grade/edit',
-                navLocation: 'grade'
+                navLocation: 'grade',
+                validationErrors: []
             });
         });
 };
 
 exports.addGrade = (req, res, next) => {
+    req.flash('message', req.__('grade.form.add.confirm.text'));
     const gradeData = { ...req.body };
     GradeRepository.createGrade(gradeData)
         .then( result => {
@@ -99,6 +104,7 @@ exports.addGrade = (req, res, next) => {
 };
 
 exports.updateGrade= (req, res, next) => {
+    req.flash('message', req.__('grade.form.edit.confirm.text'));
     const gradeId = req.body._id;
     const gradeData = { ...req.body };
     GradeRepository.updateGrade(gradeId, gradeData)
@@ -107,7 +113,9 @@ exports.updateGrade= (req, res, next) => {
         });
 };
 
+
 exports.deleteGrade = (req, res, next) => {
+    req.flash('message', req.__('grade.form.delete.text'));
     const gradeId = req.params.gradeId;
     GradeRepository.deleteGrade(gradeId)
         .then( () => {

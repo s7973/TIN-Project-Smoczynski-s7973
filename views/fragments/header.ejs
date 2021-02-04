@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akademia IT</title>
+    <title><%= __('main-page.academy') %></title>
     <link rel="stylesheet" href="/css/style.css" />
     <script type="application/javascript" src="/js/validationCommon.js"></script>
     <script type="application/javascript" src="/js/validationGradeForm.js"></script>
@@ -11,15 +11,42 @@
     <script type="application/javascript" src="/js/validationSubjectForm.js"></script>
 </head>
 <body>
+
 <header>
-    <h1>Akademia IT</h1>
+    <h1><%= __('main-page.academy') %></h1>
     <img src="/images/academy_icon.jpg" alt="Akademia IT Logo">
 </header>
+<ul>
+    <a href="/changeLang/pl" class="<%= lang == 'pl' ? 'active' : ''%>"><img src="/images/PL.jpg" alt="PL"></a>
+    <a href="/changeLang/en" class="<%= lang == 'en' ? 'active' : ''%>"><img src="/images/EN.jpg" alt="EN"></a>
+</ul>
+<% if(!loggedUser) { %>
+    <div id="login">
+        <form method="post" action="/login" novalidate>
+            <label for="loginEmail"><%= __('logging.email') %>:</label>
+            <input type="email" id="loginEmail" name="email">
+
+            <label for="loginPassword"><%= __('logging.password') %>:</label>
+            <input type="password" id="loginPassword" name="password">
+
+            <input class="list-actions-button-details" type="submit" value="<%= __('logging.logIn') %>">
+            <a href="/register" class="button-add"><%= __('logging.registration') %></a>
+            <span class="errors-login" id="loginErrors"><%= loginError ? loginError : ''%></span>
+        </form>
+    </div>
+<% } else if(loggedUser) { %>
+<span><%= __('logging.description') %>: <%=loggedUser.firstName + " " + loggedUser.lastName%></span>
+<a href="/logout" class="list-actions-button-delete" ><%= __('logging.logOut') %></a>
+<% } %>
 <nav>
     <ul>
-        <li><a href="/" class="<%= navLocation == 'main' ? 'active' : ''%>">Strona główna</a></li>
-        <li><a href="/student" class="<%= navLocation == 'student' ? 'active' : ''%>">Studenci</a></li>
-        <li><a href="/subject" class="<%= navLocation == 'subject' ? 'active' : ''%>">Przedmioty</a></li>
-        <li><a href="/grade" class="<%= navLocation == 'grade' ? 'active' : ''%>">Oceny</a></li>
+        <li><a href="/" class="<%= navLocation == 'main' ? 'active' : ''%>"><%= __('nav.main-page') %></a></li>
+        <% if(loggedUser) { %>
+        <% if(loggedUser.accessLevel >= 2){ %>
+        <li><a href="/student" class="<%= navLocation == 'student' ? 'active' : ''%>"><%= __('nav.students') %></a></li>
+        <li><a href="/subject" class="<%= navLocation == 'subject' ? 'active' : ''%>"><%= __('nav.subjects') %></a></li>
+        <li><a href="/grade" class="<%= navLocation == 'grade' ? 'active' : ''%>"><%= __('nav.grades') %></a></li>
+        <% } %>
+        <% } %>
     </ul>
 </nav>

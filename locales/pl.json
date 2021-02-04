@@ -1,0 +1,213 @@
+{
+	"main-page": {
+		"content": "Strona główna",
+		"academy": "Akademia IT",
+		"description": "Do dyspozycji studentów wszystkich kierunków są nowoczesne laboratoria, specjalistyczne pracownie informatyczne, graficzne, projektowe. Uczelnia platformy ponad 600 programów w 40 laboratoriach wyposażonych w sprzęt i najnowsze oprogramowanie oprogramowanie. Dzięki umowom licencyjnym podpisanym z firmami z branży IT studenci mają stały dostęp do aktualizacji i najnowszych wersji oprogramowania.\n\nĆwiczenia i zajęcia laboratoryjne odbywają się w szesnastoosobowych grupach. W trakcie zajęć w laboratoriach komputerowych każdy student ma do dyspozycji oddzielny komputer. Osoby przygotowujące swoje prace dyplomowe mają nieograniczony dostęp do specjalistycznych pracowni.\n\nKształcenie odbywa się także w laboratoriach multimedialnych, na które dodatkowe się: profesjonalne studio nagrań, laboratorium graficzne w BlueBox, laboratorium do realizacji dźwięku, itp. Do dyspozycji studentów jest także profesjonalne studio fotograficzne, pracownie malarskie, pracownia grafiki warsztatowej, itp.\n\nPrzez cały tok studiów uczelnia zapewnia intensywną naukę języka i fakultatywnie japońskiego. PJATK jest jedynym w Polsce oficjalnym centrum badania poświadczającego zdobycie obowiązującego na liście formularzy z języka japońskiego. Ty także możliwość wyboru innego języka obcego na wyższych semestrach. Informacje dotyczące nauki języków obcych można znaleźć na stronie Studium Języków Obcych.\n\nCały kampus pokryty jest bezprzewodową firmą Wi-Fi umożliwiającą pomoc z Internetu przy pomocy telefonu. Dodatkowo uczelnia jest uznanie konfederacji Eduroam, dzięki czemu studenci mogą korzystać z Internetu na wielu uczelniach na świecie."
+	},
+	"logging": {
+		"title": "Logowanie",
+		"registration": "Zarejestruj się",
+		"register": "Zarejestruj",
+		"email": "E-mail",
+		"password": "Hasło",
+		"logIn": "Zaloguj się",
+		"logOut": "Wyloguj się",
+		"description": "Jesteś zalogowany jako",
+		"message": "Nieprawidłowe hasło lub e-mail",
+		"firstName": "Imię",
+		"lastName": "Nazwisko",
+		"studentAlias": "Alias"
+	},
+	"nav": {
+		"main-page": "Strona główna",
+		"students": "Studenci",
+		"subjects": "Przedmioty",
+		"grades": "Oceny",
+		"admin": "Administracja"
+	},
+	"list": {
+		"actions": {
+			"title": "Akcje",
+			"details": "Szczegóły",
+			"edit": "Edytuj",
+			"delete": "Usuń"
+		}
+	},
+	"form": {
+		"actions": {
+			"return": "Powrót",
+			"edit": "Edytuj",
+			"cancel": "Anuluj"
+		}
+	},
+	"student": {
+		"fields": {
+			"firstName": "Imię",
+			"lastName": "Nazwisko",
+			"email": "E-mail",
+			"number": "Numer",
+			"data": "Dane studenta",
+			"role": "Rola",
+			"password": "Hasło"
+		},
+		"list": {
+			"title": "Studenci",
+			"addNew": "Dodaj nowego studenta",
+			"noData": "Brak studentów w bazie",
+			"pageTitle": "Lista studentów"
+		},
+		"form": {
+			"grades": "Historia ocen",
+			"add": {
+				"pageTitle": "Dodawanie studenta",
+				"btnLabel": "Dodaj studenta",
+				"confirm": {
+					"header": "Potwierdzenie operacji",
+					"text": "Pomyślnie dodano studenta"
+				}
+			},
+			"edit": {
+				"pageTitle": "Edycja studenta",
+				"btnLabel": "Zapisz zmiany",
+				"confirm": {
+					"header": "Potwierdzenie operacji",
+					"text": "Pomyślnie zaktualizowano studenta"
+				}
+			},
+			"delete": {
+				"text": "Pomyślnie usunięto studenta"
+			},
+			"details": {
+				"pageTitle": "Szczegóły studenta"
+			}
+		},
+		"errors": {
+			"errorField": "Pole jest wymagane",
+			"errorNameLength": "Pole powinno zawierać od 2 do 60 znaków",
+			"errorAlias": "Pole powinno zawierać 5 znaków",
+			"errorEmailLength": "Pole powinno zawierać od 5 do 60 znaków",
+			"errorEmail": "Pole powinno zawierać prawidłowy adres e-mail",
+			"errorSummary": "Formularz zawiera błędy",
+			"errorDateFormat": "student.errors.errorDateFormat",
+			"errorDateFuture": "student.errors.errorDateFuture",
+			"errorPassword": "student.errors.errorPassword"
+		},
+		"placeholders": {
+			"name": "2-6_znaków",
+			"email": "np.nazwa@ait.pl",
+			"alias": "sXXXX",
+			"role": "---Wybierz rolę---"
+		},
+		"messages": {
+			"add": "Student został dodany!",
+			"modify": "Student został zaktualizowany!",
+			"delete": "Student został usunięty!"
+		}
+	},
+	"subject": {
+		"fields": {
+			"name": "Nazwa przedmiotu",
+			"subjectAlias": "Kod",
+			"semester": "Semestr"
+		},
+		"list": {
+			"title": "Przedmioty",
+			"addNew": "Dodaj nowy przedmiot",
+			"noData": "Brak przedmiotów w bazie",
+			"pageTitle": "Lista przedmiotów"
+		},
+		"form": {
+			"grades": "Historia ocen",
+			"add": {
+				"pageTitle": "Dodawanie przedmiotu",
+				"btnLabel": "Dodaj przedmiot",
+				"confirm": {
+					"header": "Potwierdzenie operacji",
+					"text": "Pomyślnie dodano przedmiot"
+				}
+			},
+			"edit": {
+				"pageTitle": "Edycja przedmiotu",
+				"btnLabel": "Zapisz zmiany",
+				"confirm": {
+					"header": "Potwierdzenie operacji",
+					"text": "Pomyślnie zaktualizowano przedmiot"
+				}
+			},
+			"details": {
+				"pageTitle": "Szczegóły przedmiotu"
+			},
+			"delete": {
+				"text": "Pomyślnie usunięto przedmiot"
+			}
+		},
+		"errors": {
+			"errorField": "Pole jest wymagane",
+			"errorNameLength": "Pole powinno zawierać od 2 do 60 znaków",
+			"errorCode": "Pole powinno zawierać od 2 do 3 znaków",
+			"errorNumber": "Wartość powinna być liczbą",
+			"errorRange": "Liczba powinna być w przedziale 1-8",
+			"errorSummary": "Formularz zawiera błędy"
+		},
+		"placeholders": {
+			"name": "2-60_znaków",
+			"code": "2-3_znaków",
+			"semester": "numer_1-8"
+		}
+	},
+	"grade": {
+		"fields": {
+			"studentNumber": "Numer studenta",
+			"subject": "Przedmiot",
+			"grade": "Ocena",
+			"data": "Data",
+			"studentData": "Student",
+			"subjectData": "Przedmiot"
+		},
+		"list": {
+			"title": "Oceny",
+			"addNew": "Dodaj nową ocenę",
+			"noData": "Brak ocen w bazie",
+			"pageTitle": "Lista ocen"
+		},
+		"form": {
+			"grades": "Więcej szczegółów",
+			"add": {
+				"pageTitle": "Dodawanie oceny",
+				"btnLabel": "Dodaj ocenę",
+				"confirm": {
+					"header": "Potwierdzenie operacji",
+					"text": "Pomyślnie dodano ocenę"
+				}
+			},
+			"edit": {
+				"pageTitle": "Edycja oceny",
+				"btnLabel": "Zapisz zmiany",
+				"confirm": {
+					"header": "Potwierdzenie operacji",
+					"text": "Pomyślnie zaktualizowano ocenę"
+				}
+			},
+			"details": {
+				"pageTitle": "Szczegóły oceny"
+			},
+			"delete": {
+				"text": "Pomyślnie usunięto ocenę"
+			}
+		},
+		"errors": {
+			"errorField": "Pole jest wymagane",
+			"errorNumber": "Wartość powinna być liczbą",
+			"errorRange": "Liczba powinna być w przedziale 2-5",
+			"errorDateFormat": "Pole powinno zawierać datę w formacie dd-mm-yyyy (np. 01-01-2020)",
+			"errorDateFuture": "Data nie może być z przyszłości",
+			"errorSummary": "Formularz zawiera błędy"
+		},
+		"placeholders": {
+			"student": "---Wybierz studenta---",
+			"subject": "---Wybierz przedmiot---",
+			"grade": "Numer_2-5",
+			"date": "dd.mm.rrrr"
+		}
+	}
+}

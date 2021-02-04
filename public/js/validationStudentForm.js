@@ -2,65 +2,70 @@ function validateStudentForm() {
 
     const firstNameInput = document.getElementById('firstName');
     const lastNameInput = document.getElementById('lastName');
-    const studentAliasInput = document.getElementById('studentAlias');
     const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
 
     const errorFirstName = document.getElementById('errorFirstName');
     const errorLastName = document.getElementById('errorLastName');
-    const errorStudentAlias = document.getElementById('errorStudentAlias');
     const errorEmail = document.getElementById('errorEmail');
+    const errorPassword = document.getElementById('errorPassword');
     const errorsSummary = document.getElementById('errorsSummary');
 
-    resetErrors([firstNameInput, lastNameInput, studentAliasInput, emailInput], [errorFirstName, errorLastName, errorStudentAlias, errorEmail], errorsSummary);
+    const reqMessage = document.getElementById('errorMessage-required').innerText;
+    const nameLengthMessage = document.getElementById('errorMessage-nameLength').innerText;
+    const emailLengthMessage = document.getElementById('errorMessage-emailLength').innerText;
+    const emailMessage = document.getElementById('errorMessage-email').innerText;
+    const passwordMessage = document.getElementById('errorMessage-password').innerText;
+    const summaryMessage = document.getElementById('errorMessage-summary').innerText;
+
+
+    resetErrors([firstNameInput, lastNameInput, emailInput, passwordInput],
+        [errorFirstName, errorLastName, errorEmail, errorPassword], errorsSummary);
 
     let valid = true;
 
     if (!checkRequired(firstNameInput.value)) {
         valid = false;
         firstNameInput.classList.add("error-input");
-        errorFirstName.innerText = "Pole jest wymagane";
+        errorFirstName.innerText = reqMessage;
     } else if (!checkTextLengthRange(firstNameInput.value, 2, 60)) {
         valid = false;
         firstNameInput.classList.add("error-input");
-        errorFirstName.innerText = "Pole powinno zawierać od 2 do 60 znaków";
+        errorFirstName.innerText = nameLengthMessage;
     }
 
-    if (!checkRequired(studentAliasInput.value)) {
+    if (!checkRequired(passwordInput.value)) {
         valid = false;
-        studentAliasInput.classList.add("error-input");
-        errorStudentAlias.innerText = "Pole jest wymagane";
-    } else if (!checkTextLengthRange(studentAliasInput.value, 5, 5)) {
-        valid = false;
-        studentAliasInput.classList.add("error-input");
-        errorStudentAlias.innerText = "Pole powinno zawierać 5 znaków";
+        passwordInput.classList.add("error-input");
+        errorPassword.innerText = reqMessage;
     }
 
     if (!checkRequired(lastNameInput.value)) {
         valid = false;
         lastNameInput.classList.add("error-input");
-        errorLastName.innerText = "Pole jest wymagane";
+        errorLastName.innerText = reqMessage;
     } else if (!checkTextLengthRange(lastNameInput.value, 2, 60)) {
         valid = false;
         lastNameInput.classList.add("error-input");
-        errorLastName.innerText = "Pole powinno zawierać od 2 do 60 znaków";
+        errorLastName.innerText = nameLengthMessage;
     }
 
     if (!checkRequired(emailInput.value)) {
         valid = false;
         emailInput.classList.add("error-input");
-        errorEmail.innerText = "Pole jest wymagane";
+        errorEmail.innerText = reqMessage;
     } else if (!checkTextLengthRange(emailInput.value, 5, 60)) {
         valid = false;
         emailInput.classList.add("error-input");
-        errorEmail.innerText = "Pole powinno zawierać od 5 do 60 znaków";
+        errorEmail.innerText = emailLengthMessage;
     } else if (!checkEmail(emailInput.value)) {
         valid = false;
         emailInput.classList.add("error-input");
-        errorEmail.innerText = "Pole powinno zawierać prawidłowy adres email";
+        errorEmail.innerText = emailMessage;
     }
 
     if (!valid) {
-        errorsSummary.innerText = "Formularz zawiera błędy";
+        errorsSummary.innerText = summaryMessage;
     }
 
     return valid;

@@ -1,35 +1,46 @@
 ﻿<%- include('../../fragments/header.ejs') %>
 <main>
-    <h2>Lista ocen</h2>
+    <% if(message.length > 0) { %>
+        <div class="button-add">
+            <%= message %>
+        </div>
+    <% } %>
+    <h2><%= __('grade.list.pageTitle') %></h2>
     <table class="table-list">
         <thead>
         <tr>
-            <th>Numer studenta</th>
-            <th>Przedmiot</th>
-            <th>Ocena</th>
-            <th>Data</th>
-            <th>Akcje</th>
+            <th><%= __('grade.fields.studentNumber') %></th>
+            <th><%= __('grade.fields.subject') %></th>
+            <th><%= __('grade.fields.grade') %></th>
+            <th><%= __('grade.fields.data') %></th>
+            <th><%= __('list.actions.title') %></th>
         </tr>
         </thead>
         <tbody>
         <% for (let g of grade) { %>
             <tr>
+                <%if ((loggedUser.accessLevel > 2) || JSON.stringify(loggedUser) === JSON.stringify(g.student))  { %>
                 <td><%= g.student.studentAlias %></td>
                 <td><%= g.subject.subjectAlias %></td>
                 <td><%= g.grade %></td>
                 <td><%= g.date.toISOString().split('T')[0] %></td>
                 <td>
                     <ul class="list-actions">
-                        <li><a href="/grade/details/<%=g._id%>" class="list-actions-button-details">Szczegóły</a></li>
-                        <li><a href="/grade/edit/<%=g._id%>" class="list-actions-button-edit">Edytuj</a></li>
-                        <li><a href="/grade/delete/<%=g._id%>" class="list-actions-button-delete">Usuń</a></li>
+                        <li><a href="/grade/details/<%=g._id%>" class="list-actions-button-details"><%= __('list.actions.details') %></a></li>
+                        <%if (loggedUser.accessLevel > 2)  { %>
+                        <li><a href="/grade/edit/<%=g._id%>" class="list-actions-button-edit"><%= __('list.actions.edit') %></a></li>
+                        <li><a href="/grade/delete/<%=g._id%>" class="list-actions-button-delete" onclick="return confirm('Are you sure?')" ><%= __('list.actions.delete') %> </a></li>
+                        <% } %>
                     </ul>
                 </td>
             </tr>
         <% } %>
+        <% } %>
         </tbody>
     </table>
-    <p><a href="/grade/add" class="button-add" class="<%= navLocation == 'grade' ? 'active' : ''%>">Dodaj nową ocenę</a></p>
+    <%if (loggedUser && (loggedUser.accessLevel > 2))  { %>
+    <p><a href="/grade/add" class="button-add" class="<%= navLocation == 'grade' ? 'active' : ''%>"><%= __('grade.list.addNew') %></a></p>
+    <% } %>
     <p></p>
 </main>
 <%- include('../../fragments/footer.ejs') %>

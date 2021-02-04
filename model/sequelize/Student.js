@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../config/sequelize/sequelize');
+const authUtil = require('../../util/authUtils');
+
 
 const Student = sequelize.define('Student', {
     _id: {
@@ -13,24 +15,24 @@ const Student = sequelize.define('Student', {
         allowNull: false,
         validate: {
             notEmpty: {
-                msg: "Pole jest wymagane"
+                msg: "The field is required"
             },
             len: {
                 args: [2,60],
-                msg: "Pole powinno zawierać od 2 do 60 znaków"
+                msg: "The field should contains 2 to 60 chars"
             },
         }
     },
     lastName: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
             notEmpty: {
-                msg: "Pole jest wymagane"
+                msg: "The field is required"
             },
             len: {
                 args: [2,60],
-                msg: "Pole powinno zawierać od 2 do 60 znaków"
+                msg: "The field should contains 2 to 60 chars"
             },
         }
     },
@@ -40,31 +42,42 @@ const Student = sequelize.define('Student', {
         unique: true,
         validate: {
             notEmpty: {
-                msg: "Pole jest wymagane"
+                msg: "The field is required"
             },
             len: {
                 args: [5,60],
-                msg: "Pole powinno zawierać od 5 do 60 znaków"
+                msg: "The field should contains 5 to 60 chars"
             },
             isEmail: {
-                msg: 'Pole powinno zawierać prawidłowy adres email'
+                msg: "The field should have correct e-mail adress"
             }
         }
     },
     studentAlias: {
         type: Sequelize.STRING,
+        allowNull: true,
+        unique: true
+    },
+    password: {
+        type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
         validate: {
             notEmpty: {
-                msg: "Pole jest wymagane"
-            },
-            len: {
-                args: [2,60],
-                msg: "Pole powinno zawierać od 2 do 60 znaków"
-            },
+                msg: "The field is required"
+            }
         }
-    }
+
+    },
+    accessLevel: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+        /* wywala blad w validationerrors
+        defaultValue: 0
+        */
+
+    },
+
+
 });
 
 module.exports = Student;

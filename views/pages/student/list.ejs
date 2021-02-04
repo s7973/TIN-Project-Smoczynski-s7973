@@ -1,36 +1,48 @@
 ﻿<%- include('../../fragments/header.ejs') %>
-    <main>
-        <h2>Lista studentów</h2>
-        <table class="table-list">
-            <thead>
-                <tr>
-                    <th>Imię</th>
-                    <th>Nazwisko</th>
-                    <th>E-mail</th>
-                    <th>Numer</th>
-                    <th>Akcje</th>
-                </tr>
-            </thead>
-            <tbody>
-            <% for (let student of students) { %>
-                <tr>
-                    <td><%= student.firstName %></td>
-                    <td><%= student.lastName %></td>
-                    <td><%= student.email %></td>
-                    <td><%= student.studentAlias %></td>
-                    <td>
-                        <ul class="list-actions">
-                            <li><a href="/student/details/<%=student._id%>" class="list-actions-button-details">Szczegóły</a></li>
-                            <li><a href="/student/edit/<%=student._id%>" class="list-actions-button-edit">Edytuj</a></li>
-                            <li><a href="/student/delete/<%=student._id%>" class="list-actions-button-delete">Usuń</a></li>
-                        </ul>
-                    </td>
-                </tr>
-            <% } %>
-            </tbody>
-        </table>
-        <p><a href="/student/add" class="button-add" class="<%= navLocation == 'student' ? 'active' : ''%>">Dodaj nowego studenta</a></p>
-        <p></p>
-    </main>
-<%- include('../../fragments/footer.ejs') %>
+<main>
+    <% if(message.length > 0) { %>
+        <div class="button-add">
+            <%= message %>
+        </div>
+    <% } %>
+    <h2><%= __('student.list.pageTitle') %></h2>
+    <table class="table-list">
+        <thead>
+        <tr>
+            <th><%= __('student.fields.firstName') %></th>
+            <th><%= __('student.fields.lastName') %></th>
+            <th><%= __('student.fields.email') %></th>
+            <th><%= __('student.fields.number') %></th>
+            <th><%= __('list.actions.title') %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <%for (let student of students) { %>
+            <tr>
+                <td><%= student.firstName %></td>
+                <td><%= student.lastName %></td>
+                <td><%= student.email %></td>
+                <td><%= student.studentAlias %></td>
+                <td>
+                    <ul class="list-actions">
+                        <%if ((loggedUser.accessLevel > 2) || JSON.stringify(loggedUser) === JSON.stringify(student))  { %>
+                        <li><a href="/student/details/<%=student._id%>" class="list-actions-button-details"><%= __('list.actions.details') %></a></li>
+                        <%if ((loggedUser.accessLevel > 2))  { %>
+                        <li><a href="/student/edit/<%=student._id%>" class="list-actions-button-edit"><%= __('list.actions.edit') %></a></li>
+                        <li><a href="/student/delete/<%=student._id%>" class="list-actions-button-delete" onclick="return confirm('Are you sure?')" ><%= __('list.actions.delete') %></a></li>
+                        <% } %>
+                        <% } %>
+                    </ul>
+                </td>
 
+            </tr>
+        <% } %>
+        </tbody>
+
+    </table>
+    <%if (loggedUser && (loggedUser.accessLevel > 2))  { %>
+    <p><a href="/student/add" class="button-add" class="<%= navLocation == 'student' ? 'active' : ''%>"><%= __('student.list.addNew') %></a></p>
+    <% } %>
+    <p></p>
+</main>
+<%- include('../../fragments/footer.ejs') %>

@@ -1,0 +1,208 @@
+{
+	"main-page": {
+		"content": "Main Page",
+		"academy": "IT Academy",
+		"description": "Students of all faculties have at their disposal modern laboratories, specialized IT, graphic and design laboratories. The university platforms over 600 programs in 40 laboratories equipped with hardware and the latest software. Thanks to license agreements signed with companies from the IT industry, students have constant access to updates and the latest versions of the software.\n\nExercises and laboratory classes are held in groups of sixteen. During classes in computer laboratories, each student has a separate computer at their disposal. Persons preparing their diploma theses have unlimited access to specialist laboratories.\n\nThe training also takes place in multimedia laboratories, which include: a professional recording studio, a graphics laboratory in BlueBox, a sound production laboratory, etc. Students also have at their disposal a professional photo studio, painting studios, workshop graphics studio, etc.\n\nThroughout the course of studies, the university provides intensive language and optional Japanese. PJATK is the only official research center in Poland that certifies the acquisition of the Japanese language forms applicable on the list. You also have the option of choosing a different foreign language for higher semesters. Information on learning foreign languages ​​can be found on the website of the Foreign Language Center.\n\nThe entire campus is covered with a wireless Wi-Fi company that allows you to help over the Internet with your phone. In addition, the university is recognized by the Eduroam confederation, thanks to which students can use the Internet at many universities around the world."
+	},
+	"logging": {
+		"title": "Log in",
+		"registration": "Register",
+		"register": "Register",
+		"email": "E-mail",
+		"password": "Password",
+		"logIn": "Log in",
+		"logOut": "Log out",
+		"description": "You are logged as",
+		"message": "Wrong password or e-mail adress",
+		"firstName": "First Name",
+		"lastName": "Last Name",
+		"studentAlias": "Alias"
+	},
+	"nav": {
+		"main-page": "Main page",
+		"students": "Students",
+		"subjects": "Subjects",
+		"grades": "Grades",
+		"admin": "Administration"
+	},
+	"list": {
+		"actions": {
+			"title": "Actions",
+			"details": "Details",
+			"edit": "Edit",
+			"delete": "Delete"
+		}
+	},
+	"form": {
+		"actions": {
+			"return": "Return",
+			"edit": "Edit",
+			"cancel": "Cancel"
+		}
+	},
+	"student": {
+		"fields": {
+			"firstName": "First Name",
+			"lastName": "Last Name",
+			"email": "E-mail",
+			"number": "Number",
+			"data": "Student data",
+			"role": "Role",
+			"password": "Password"
+		},
+		"list": {
+			"title": "Students",
+			"addNew": "Add new student",
+			"noData": "No students in database",
+			"pageTitle": "List of students"
+		},
+		"form": {
+			"grades": "History of grades",
+			"add": {
+				"pageTitle": "Adding a new student",
+				"btnLabel": "Add the student",
+				"confirm": {
+					"header": "Confirmation",
+					"text": "The new student has been successfully created"
+				}
+			},
+			"edit": {
+				"pageTitle": "Editing an student",
+				"btnLabel": "Save changes",
+				"confirm": {
+					"header": "Confirmation",
+					"text": "The student has been successfully updated"
+				}
+			},
+			"details": {
+				"pageTitle": "Student's details"
+			},
+			"delete": {
+				"text": "The student has been successfully deleted"
+			}
+		},
+		"errors": {
+			"errorField": "The field is required",
+			"errorNameLength": "The field should contains 2 to 60 chars",
+			"errorAlias": "The field should contain 5 chars",
+			"errorEmailLength": "The field should contains 5 to 60 chars",
+			"errorEmail": "The field should have correct e-mail adress",
+			"errorSummary": "The form contains errors",
+			"errorDateFormat": "student.errors.errorDateFormat",
+			"errorDateFuture": "student.errors.errorDateFuture",
+			"errorPassword": "student.errors.errorPassword"
+		},
+		"placeholders": {
+			"name": "2-60_chars",
+			"email": "E.g.name@ait.pl",
+			"alias": "sXXXX",
+			"role": "---Select role---"
+		}
+	},
+	"subject": {
+		"fields": {
+			"name": "Subject name",
+			"subjectAlias": "Code",
+			"semester": "Semester"
+		},
+		"list": {
+			"title": "Subjects",
+			"addNew": "Add new subject",
+			"noData": "No subjects in database",
+			"pageTitle": "List of subjects"
+		},
+		"form": {
+			"grades": "History of grades",
+			"add": {
+				"pageTitle": "Adding a new subject",
+				"btnLabel": "Add the subject",
+				"confirm": {
+					"header": "Confirmation",
+					"text": "The new subject has been successfully created"
+				}
+			},
+			"edit": {
+				"pageTitle": "Editting an subject",
+				"btnLabel": "Save changes",
+				"confirm": {
+					"header": "Confirmation",
+					"text": "The subject has been successfully updated"
+				}
+			},
+			"details": {
+				"pageTitle": "Subject details"
+			},
+			"delete": {
+				"text": "The subject has been soccessfully deleted"
+			}
+		},
+		"errors": {
+			"errorField": "The field is required",
+			"errorNameLength": "The field should contains 2 to 60 chars",
+			"errorCode": "The field should contains 2 to 3 chars",
+			"errorNumber": "The field should be a number",
+			"errorRange": "The field should have a number from 1 to 8",
+			"errorSummary": "The form contains errors"
+		},
+		"placeholders": {
+			"name": "2-60_chars",
+			"code": "2-3_chars",
+			"semester": "1-8_number"
+		}
+	},
+	"grade": {
+		"fields": {
+			"studentNumber": "Student number",
+			"subject": "Subject",
+			"grade": "Grade",
+			"data": "Data",
+			"studentData": "Student",
+			"subjectData": "Subject"
+		},
+		"list": {
+			"title": "Grades",
+			"addNew": "Add new grade",
+			"noData": "No grades in database",
+			"pageTitle": "List of grades"
+		},
+		"form": {
+			"grades": "More details",
+			"add": {
+				"pageTitle": "Adding a new grade",
+				"btnLabel": "Add the grade",
+				"confirm": {
+					"header": "Confirmation",
+					"text": "The new grade has been successfully created"
+				}
+			},
+			"edit": {
+				"pageTitle": "Editting an grade",
+				"btnLabel": "Save changes",
+				"confirm": {
+					"header": "Confirmation",
+					"text": "The grade has been successfully updated"
+				}
+			},
+			"details": {
+				"pageTitle": "Grade details"
+			},
+			"delete": {
+				"text": "The grade has been successfully deleted"
+			}
+		},
+		"errors": {
+			"errorField": "The field is required",
+			"errorNumber": "The field should be a number",
+			"errorRange": "The field should have a number from 2 to 5",
+			"errorDateFormat": "The field should contains correct date format dd-mm-yyyy (E.g. 01-01-2020)",
+			"errorDateFuture": "Date cannot be from future",
+			"errorSummary": "The form contains errors"
+		},
+		"placeholders": {
+			"student": "---Select student---",
+			"subject": "---Select subject---",
+			"grade": "Number_2-5",
+			"date": "dd.mm.yyyy"
+		}
+	}
+}

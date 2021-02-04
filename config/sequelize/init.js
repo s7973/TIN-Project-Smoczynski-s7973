@@ -3,32 +3,60 @@ const sequelize = require('./sequelize');
 const Student = require('../../model/sequelize/Student');
 const Subject = require('../../model/sequelize/Subject');
 const Grade = require('../../model/sequelize/Grade');
+const Role = require('../../model/sequelize/Role');
+
+const authUtil = require('../../util/authUtils');
+const passHash = authUtil.hashPassword('12345');
 
 module.exports = () => {
     Student.hasMany(Grade, {as: 'grade', foreignKey: {name: 'student_id', allowNull: false}, constraints: true, onDelete: 'CASCADE'});
     Grade.belongsTo(Student, {as: 'student', foreignKey: {name: 'student_id', allowNull: false} } );
     Subject.hasMany(Grade, {as: 'grade', foreignKey: {name: 'subject_id', allowNull: false}, constraints: true, onDelete: 'CASCADE'});
     Grade.belongsTo(Subject, {as: 'subject', foreignKey: {name: 'subject_id', allowNull: false} });
+    Role.hasMany(Student, {as: 'student', foreignKey: {name: 'accessLevel', allowNull: false}, constraints: true,  onDelete: 'CASCADE'});
+    Student.belongsTo(Role, {as: 'role', foreignKey: {name: 'accessLevel', allowNull: false} });
 
-    let allStudents, allSubjects;
+    let allStudents, allSubjects, allRoles;
     return sequelize
         .sync({force: true})
+
+        .then(roles => {
+            if (roles || roles.length == 0) {
+                return Role.bulkCreate([
+                    {name: 'Zarejestrowany'},
+                    {name: 'Student'},
+                    {name: 'Nauczyciel'},
+                    {name: 'Administrator'}
+                ])
+                    .then( () => {
+                        return Role.findAll();
+                    });
+            } else {
+                return roles;
+            }
+        })
+        .then( roles => {
+            allRoles = roles;
+            return Role.findAll();
+        })
+
+
         .then( () => {
             return Student.findAll();
         })
         .then(students => {
             if( !students || students.length == 0 ) {
                 return Student.bulkCreate([
-                    {firstName: 'Jan', lastName: 'Kowalski', email: 'jan.kowalski@ait.com', studentAlias: 's1234'},
-                    {firstName: 'Rafał', lastName: 'Smoczyński', email: 'rafal.smoczynski@ait.com', studentAlias: 's7973'},
-                    {firstName: 'Maciej', lastName: 'Maciejewski', email: 'maciej.maciejewski@ait.com', studentAlias: 's3432'},
-                    {firstName: 'Konrad', lastName: 'Modrzejewski', email: 'konrad.modrzejewski@ait.com', studentAlias: 's2432'},
-                    {firstName: 'Paulina', lastName: 'Paulinek', email: 'paulina.paulinek@ait.com', studentAlias: 's3435'},
-                    {firstName: 'Lucjan', lastName: 'Potocki', email: 'lucjan.potocki@ait.com', studentAlias: 's5432'},
-                    {firstName: 'Władysław', lastName: 'Czereśnicki', email: 'wladyslaw.czeresnicki@ait.com', studentAlias: 's1826'},
-                    {firstName: 'Katarzyna', lastName: 'Pierzyna', email: 'katarzyna.pierzyna@ait.com', studentAlias: 's5422'},
-                    {firstName: 'Małgorzata', lastName: 'Subnicka', email: 'malgorzata.subnicka@ait.com', studentAlias: 's8212'},
-                    {firstName: 'Ferdynand', lastName: 'Kiepski', email: 'ferdynand.kiepski@ait.com', studentAlias: 's3439'},
+                    {firstName: 'Jan', lastName: 'Kowalski', email: 'jan.kowalski@ait.com', studentAlias: 's1234', password: passHash, accessLevel: 3},
+                    {firstName: 'Rafał', lastName: 'Smoczyński', email: 'rafal.smoczynski@ait.com', studentAlias: 's7973', password: passHash, accessLevel: 4},
+                    {firstName: 'Maciej', lastName: 'Maciejewski', email: 'maciej.maciejewski@ait.com', studentAlias: 's3432', password: passHash, accessLevel: 2},
+                    {firstName: 'Konrad', lastName: 'Modrzejewski', email: 'konrad.modrzejewski@ait.com', studentAlias: 's2432', password: passHash, accessLevel: 2},
+                    {firstName: 'Paulina', lastName: 'Paulinek', email: 'paulina.paulinek@ait.com', studentAlias: 's3435', password: passHash, accessLevel: 2},
+                    {firstName: 'Lucjan', lastName: 'Potocki', email: 'lucjan.potocki@ait.com', studentAlias: 's5432', password: passHash, accessLevel: 2},
+                    {firstName: 'Władysław', lastName: 'Czereśnicki', email: 'wladyslaw.czeresnicki@ait.com', studentAlias: 's1826', password: passHash, accessLevel: 2},
+                    {firstName: 'Katarzyna', lastName: 'Pierzyna', email: 'katarzyna.pierzyna@ait.com', studentAlias: 's5422', password: passHash, accessLevel: 2},
+                    {firstName: 'Małgorzata', lastName: 'Subnicka', email: 'malgorzata.subnicka@ait.com', studentAlias: 's8212', password: passHash, accessLevel: 2},
+                    {firstName: 'Ferdynand', lastName: 'Kiepski', email: 'ferdynand.kiepski@ait.com', studentAlias: 's3439', password: passHash, accessLevel: 2},
                 ])
                     .then( () => {
                         return Student.findAll();
@@ -85,7 +113,8 @@ module.exports = () => {
             } else {
                 return grades;
             }
-        });
+        })
+
 
 
 };
